@@ -22,6 +22,8 @@ class ViewController: UIPageViewController, UIPageViewControllerDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        println("commit change")
+
         self.view.backgroundColor = UIColor.whiteColor()
         self.dataSource = self
         self.setViewControllers([cardsVC], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
