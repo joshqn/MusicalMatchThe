@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>81759889-9176-47B3-A76A-689528EC84C8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MusicalMatchThe</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>50712F647D884E4559889C70BBF491342518EF9A</key>
+		<string>https://github.com/josh-qn/MusicalMatchThe.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MusicalMatchThe.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>50712F647D884E4559889C70BBF491342518EF9A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/josh-qn/MusicalMatchThe.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>50712F647D884E4559889C70BBF491342518EF9A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>50712F647D884E4559889C70BBF491342518EF9A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MusicalMatchThe</string>
+		</dict>
+	</array>
+</dict>
+</plist>

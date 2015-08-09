@@ -11,12 +11,16 @@ import UIKit
 
 class SwipeView: UIView {
     
+    var overlay:UIImageView = UIImageView()
+    
     enum Direction {
         
         case None
         case Left
         case Right
     }
+    
+    var direction:Direction?
     
     weak var delegate: SwipeViewDelegate?
     
@@ -25,7 +29,7 @@ class SwipeView: UIView {
     var innerView:UIView? {
         didSet {
             if let v = innerView {
-                self.addSubview(v)
+                self.insertSubview(v, belowSubview: overlay)
                 v.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
             }
         }
@@ -52,25 +56,36 @@ class SwipeView: UIView {
     }
     
     private func initialize () {
-        self.backgroundColor = UIColor.redColor()
+        self.backgroundColor = UIColor.clearColor()
         
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "dragged:"))
+        
+        overlay.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        addSubview(overlay)
     }
     
     func dragged(gestureRecognizer: UIPanGestureRecognizer) {
         let distance = gestureRecognizer.translationInView(self)
-        println("Distance x: \(distance.x) y: \(distance.y)")
+//        println("Distance x: \(distance.x) y: \(distance.y)")
         
         switch gestureRecognizer.state {
         case UIGestureRecognizerState.Began:
             orginalPoint = center
         case UIGestureRecognizerState.Changed:
             
-            let rotationPercent = min(distance.x/(self.superview!.frame.width/2),1)
-            let rotationAngle = (CGFloat(2*M_PI/16)*rotationPercent)
-            transform = CGAffineTransformMakeRotation(rotationAngle)
+//            let rotationPercent = min(distance.x/(self.superview!.frame.width/2),1)
+//            let rotationAngle = (CGFloat(2*M_PI/16)*rotationPercent)
+//            transform = CGAffineTransformMakeRotation(rotationAngle)
             
-            center = CGPointMake(orginalPoint!.x + distance.x, orginalPoint!.y + distance.y)
+            var x = orginalPoint!.x + distance.x
+            
+//            println("original point: \(orginalPoint!.x), distance traveled: \(distance.x)")
+//            println(x)
+            
+            center = CGPointMake(constrainDistanceTraveled(distance.x, originalPoint: orginalPoint!.x), orginalPoint!.y)
+            
+            updateOverlay(distance.x)
+            
         case UIGestureRecognizerState.Ended:
             if abs(distance.x) < frame.width/4 {
                 resetViewPositionAndTransformations()
@@ -106,14 +121,49 @@ class SwipeView: UIView {
         })
     }
     
+    private func updateOverlay(distance:CGFloat) {
+        
+        var newDirection:Direction
+        newDirection = distance < 0 ? .Left : .Right
+        
+        if newDirection != direction {
+            direction = newDirection
+            overlay.image = direction == .Right ? UIImage(named: "yeah-stamp") : UIImage(named: "nah-stamp")
+        }
+        overlay.alpha = abs(distance) / (self.superview!.frame.width/2)
+        
+    }
+    
     private func resetViewPositionAndTransformations() {
         UIView.animateWithDuration(0.35, animations: { () -> Void in
             self.center = self.orginalPoint!
             
             self.transform = CGAffineTransformMakeRotation(0)
+            self.overlay.alpha = 0
         })
     }
     
+    func constrainDistanceTraveled (distanceTraveled:CGFloat, originalPoint: CGFloat) -> CGFloat {
+        var x = distanceTraveled
+        var max:CGFloat = 50
+        var min:CGFloat = -50
+        if x > 50 {
+            x = max + originalPoint
+            println("x > 50")
+            return x
+        }
+        else if x < min {
+            x = min + originalPoint
+            println("x < -50 ")
+            return x
+        }
+        else {
+            println(x + originalPoint)
+        }
+            return x + originalPoint
+    }
+    
+
 }
 
 protocol SwipeViewDelegate:class {
